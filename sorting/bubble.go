@@ -2,20 +2,23 @@ package main
 
 // Time Complexity: O(n^2)
 // Space Complexity: O(1)
-// Unstable
-func selectionSort(unsorted []int) []int {
+// Stable
+func bubbleSort(unsorted []int) []int {
 	// make a copy so original is untouched as Go slices behave like pass by reference
 	arr := make([]int, len(unsorted))
 	copy(arr, unsorted)
-
+	swapped := false
 	for i := 0; i < len(arr)-1; i++ {
-		minIdx := i
-		for j := i + 1; j < len(arr); j++ {
-			if arr[j] < arr[minIdx] {
-				minIdx = j
+		swapped = false
+		for j := 0; j < len(arr)-1-i; j++ {
+			if arr[j] > arr[j+1] {
+				arr[j], arr[j+1] = arr[j+1], arr[j]
+				swapped = true
 			}
 		}
-		arr[minIdx], arr[i] = arr[i], arr[minIdx]
+		if !swapped {
+			break
+		}
 	}
 
 	return arr
